@@ -1,9 +1,9 @@
 {
-  "name": "react-component-boilerplate",
-  "description": "Boilerplate for React.js components",
-  "author": "Juho Vepsalainen",
-  "user": "survivejs",
-  "version": "3.0.0",
+  "name": "base-styling-components",
+  "description": "Base react styling components",
+  "author": "Peter Dubec",
+  "user": "pitr12",
+  "version": "0.0.1",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "jest",
@@ -68,15 +68,15 @@
     "webpack-merge": "^2.0.0"
   },
   "peerDependencies": {
-    "react": ">= 0.11.2 < 16.0.0"
+    "react": ">= 0.11.2 < 16.0.0",
+    "fela": "^4.2.0",
+    "fela-dom": "^4.2.0",
+    "inline-style-prefixer": "https://registry.npmjs.org/inline-style-prefixer/-/inline-style-prefixer-2.0.1.tgz",
+    "react-fela": "^4.2.0",
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/survivejs/react-component-boilerplate.git"
-  },
-  "homepage": "https://survivejs.github.io/react-component-boilerplate/",
-  "bugs": {
-    "url": "https://github.com/survivejs/react-component-boilerplate/issues"
+    "url": "https://github.com/pitr12/base-styling-components.git"
   },
   "jest": {
     "collectCoverage": true,
