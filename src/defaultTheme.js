@@ -1,5 +1,5 @@
 // @flow
-const defaultTheme = {
+const defaultTheme: themeType = {
   scale: [
     0, 2, 4, 8, 16, 32, 64,
   ],
@@ -15,7 +15,7 @@ const defaultTheme = {
 
 export type themeType = {
   scale: number[],
-  tetxtScale: number[],
+  textScale: number[],
   text: {
     fontFamily: string,
     color: string,
