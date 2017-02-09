@@ -1,3 +1,4 @@
+// @flow
 import Box from './Box';
 import Text from './Text';
 import defaultTheme from './defaultTheme';

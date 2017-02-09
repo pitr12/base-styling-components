@@ -4,7 +4,7 @@ import defaultTheme from './defaultTheme';
 import type { themeType } from './defaultTheme'; // eslint-disable-line no-duplicate-imports
 
 export type BoxProps = {
-  as?: () => React.Element<*>,
+  as?: () => React.Element<*> | string,
   style?: Object,
   m?: number | string,
   margin?: number | string,
