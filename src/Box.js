@@ -152,6 +152,7 @@ const computeBoxStyle = (theme = defaultTheme, {
   overflow,
   position,
   zIndex,
+
   ...props
 }) => {
   let style = {

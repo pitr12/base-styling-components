@@ -39,6 +39,7 @@ const computeTextStyle = (theme = defaultTheme, {
   textTransform = transform,
   italic,
   lineHeight,
+
   ...props
 }) => {
   let style = {
