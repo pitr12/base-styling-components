@@ -1,61 +1,292 @@
-[![build status](https://secure.travis-ci.org/survivejs/react-component-boilerplate.svg)](http://travis-ci.org/survivejs/react-component-boilerplate) [![bitHound Score](https://www.bithound.io/github/survivejs/react-component-boilerplate/badges/score.svg)](https://www.bithound.io/github/survivejs/react-component-boilerplate) [![Dependency Status](https://david-dm.org/survivejs/react-component-boilerplate.svg)](https://david-dm.org/survivejs/react-component-boilerplate)
+This package provides abstraction of UI using two basic React components `Box` and `Text`. It serves as a foundation for creating your own custom UI library. Moreover designed components are annotated using [Flow](https://flowtype.org/)
 
-# react-component-boilerplate - Boilerplate for React.js components
-
-This is a simple boilerplate that has been developed to make it easier to develop React components and small projects.
-
-> Check out [SurviveJS - Webpack and React](http://survivejs.com/) to dig deeper into the topic.
+> Check out [CSS in JS: The Argument Refined](https://medium.com/@steida/css-in-js-the-argument-refined-471c7eb83955#.vt8tluumu) to dig deeper into the topic.
 
 ## Basic Usage
 
-Clone the repo : `git clone https://github.com/survivejs/react-component-boilerplate my-component`.
+Install this package via:
+```
+npm i --save basic-styling-components
+```
+Prerequisites
+* [Fela.js](http://fela.js.org/)
+```
+npm i --save fela@^4.2.0 fela-dom@^4.2.0 inline-style-prefixer@^2.0.1 react-fela@^4.2.0
+```
 
-To get started with fresh history, do this:
+Setup your APP for using [Fela.js](http://fela.js.org/):
 
-1. `cd my-component`
-2. `rm -rf .git` - Remove Git database
-3. `git init` - Initialize a new Git repository
-4. `git add .` - Add all files to staging
-5. `git commit -am "Initial commit"` - Commit the files
+* add style node to app `<header>` section where all styles will be injected:
 
-After this you should push the project to some remote.
+```html
+<style id="fela-stylesheet" type="text/css"></style>
+```
 
-If you want to replace project meta information (author etc.), consider using a tool like [replace-project-meta](https://www.npmjs.com/package/replace-project-meta).
-
-### Common Tasks
-
-* Developing - **npm start** - Runs the development server at *localhost:8080* and use Hot Module Replacement. You can override the default host and port through env (`HOST`, `PORT`).
-* Creating a version - **npm version <x.y.z>** - Updates */dist* and *package.json* with the new version and create a version tag to Git.
-* Publishing a version - **npm publish** - Pushes a new version to npm and updates the project site.
-
-### Testing
-
-The test setup is based on Jest. Code coverage report is generated to `coverage/`. The coverage information is also uploaded to codecov.io after a successful Travis build.
-
-* Running tests once - **npm test**
-* Running tests continuously - **npm run test:watch**
-* Running individual tests - **npm test -- <pattern>** - Works with `test:watch` too.
-* Linting - **npm run test:lint** - Runs ESLint.
-
-### Documentation Site
-
-The boilerplate includes a [GitHub Pages](https://pages.github.com/) specific portion for setting up a documentation site for the component. The main commands handle with the details for you. Sometimes you might want to generate and deploy it by hand, or just investigate the generated bundle.
-
-* Building - **npm run gh-pages** - Builds the documentation into `./gh-pages` directory.
-* Deploying - **npm run deploy-gh-pages** - Deploys the contents of `./gh-pages` to the `gh-pages` branch. GitHub will pick this up automatically. Your site will be available through *<user name>.github.io/<project name>`.
-* Generating stats - **npm run stats** - Generates stats that can be passed to [webpack analyse tool](https://webpack.github.io/analyse/). This is useful for investigating what the build consists of.
-
-## Highlighting Demo for the Site
+* Setup Fela renderrer to prefix styles with vendor prefixes and wrap your app using Fela `<Provider>`:
 
 ```js
-var a = 5;
-var b = 10;
+import { createRenderer } from 'fela';
+import { Provider } from 'react-fela';
+import prefixAll from 'inline-style-prefixer/static';
 
-// just trying out code highlighting feature here
-console.log(a + b);
+const prefixerPlugin = styleObject => prefixAll(styleObject);
+const config = {
+  plugins: [prefixerPlugin],
+};
+const renderer = createRenderer(config);
+const mountNode = document.getElementById('fela-stylesheet');
+
+<Provider renderer={renderer} mountNode={mountNode}>
+  <App />
+</Provider>
 ```
+
+Box and Text components accepts cammelCased CSS properties. Use the Box component for visual containers and grids and use Text component for headers, labels and any other typography.
+```js
+// @flow
+import { Box, Text } from 'base-styling-components';
+
+<Box>basic div component</Box>
+<Text as="h1">Heading 1</Text>
+```
+
+## Configuration
+Basic style configuration is using specified defaultTheme with following attributes:
+
+| Property  | Description |
+| ------------- | ------------- |
+| scale (array)  | scale used for margin and padding  |
+| textScale (array)  | scale used for text size  |
+| text | default text props |
+
+Used default theme and specified theme flow type:
+```javascript
+// @flow
+const defaultTheme: themeType = {
+  scale: [
+    0, 2, 4, 8, 16, 32, 64,
+  ],
+  textScale: [
+    12, 16, 18, 24, 36, 48, 72,
+  ],
+  text: {
+    fontFamily: 'Roboto,sans-serif',
+    color: '#555',
+    bold: 600,
+  },
+};
+
+export type themeType = {
+  scale: number[],
+  textScale: number[],
+  text: {
+    fontFamily: string,
+    color: string,
+    bold: 'bold' | 'normal' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
+  },
+};```
+
+If you need to override default configuration or add some new attributes (eg. commonly used colors) you can do it by providing your own theme which will follow specified Flow theme type. You can pass your custom theme usgin Fela <ThemeProvider> which will pass defined theme to all child components using context.
+```js
+// @flow
+import { ThemeProvider } from 'react-fela';
+import { defaultTheme } from 'base-styling-components';
+import type { themeType } from 'base-styling-components';
+
+const myCustomTheme: themeType = {
+  ...defaultTheme,
+  scale: [0, 10, 20, 30, 40, 100, 120],
+  colors: {
+    color1: "#000000",
+  },
+};
+
+<ThemeProvider theme={myCustomTheme}>
+  <App />
+</ThemeProvider>
+```
+
+### Elements
+Rendered element can be changed via `as` prop (default element is `<div>`):
+```html
+<Box as="button">
+  basic button component
+</Box>
+```
+
+### Accepted props
+#### Margin and Padding
+Margin and padding can be controlled using `m` and `p` props. They accept simple number value e.g `m={4}` or text value `m="10px"`. If supplied number value is from range of indexes in set config scale value from supplied scale is used.
+
+```html
+<Box
+  p={5} //padding 32px will be aplied
+>
+  box component
+</Box>
+```
+
+Margin and padding can be expressed using basic camelCase props such as `margin, padding, marginTop, paddingTop, marginHorizontal, marginVertical etc.` or using following shorthand props:
+
+| Prop  | Meaning |
+| ------------- | ------------- |
+|  m  | margin |
+|  mt  | margin-top |
+|  mb  | margin-bottom |
+|  ml  | margin-left |
+|  mr  | margin-right |
+|  mv  | margin-top and bottom |
+|  mh  | margin-left and right |
+|  p  | padding |
+|  pt  | padding-top |
+|  pb  | padding-bottom |
+|  pl  | padding-left |
+|  pr  | padding-right |
+|  pv  | padding-top and bottom |
+|  ph  | padding-left and right |
+
+#### Width and Height
+CSS properties representing width and height such as `width, height, maxWidth, minHeight etc.` accepts number value or text value. If supplied number value is from range 0-1 value is represented as percentage, otherwise it is represented as pixel value.
+
+```html
+<Box
+  width={1/2} //50% width div
+>
+  box component
+</Box>
+```
+
+#### Pixel props
+CSS props which should receive value with unit and will be supplied without specified unit will be represented as `px`.
+
+Eg. `borderWidth={10} //10px`
+
+#### Font Size
+Font size in Text component can be set using `size` property. It accepts simple number value or text value. If supplied number value is from range of indexes in set config textScale value from supplied scale is used. If number is grater than number of scale indexes, value is represented as px.
+
+```javascript
+<Text size={5}>Some text</Text> //fontSize: 48px
+<Text size={20}>Some text</Text> //fontSize: 20px
+```
+
+#### Typography
+Other typography styles can be set using following props
+
+| Property  | Description / Accepted values |
+| ------------- | ------------- |
+| align  | 'left' / 'right' / 'center' / 'justify' |
+| bold  | boolean to set text as bold |
+| italic  | boolean to set text as italic |
+| decoration  | 'none' / 'underline' / 'line-through' |
+| transform  | 'none' / 'capitalize' / 'uppercase' / 'lowercase' |
+
+#### Custom CSS
+If you need to specify custom css property eg. media-query or some pseudo classes property `style` can be used.
+
+```html
+<Box
+  as="button"
+  backgroundColor="red"
+  style={{
+    ':hover': {
+       backgroundColor: 'green',
+    },
+  }}
+>
+  hover buttonn
+</Box>
+```
+
+### List of all accepted propos
+#### Box component
+*   m,
+*   margin,
+*   mv,
+*   marginVertical,
+*   mh,
+*   marginHorizontal,
+*   mt,
+*   marginTop,
+*   mb,
+*   marginBottom,
+*   ml,
+*   marginLeft,
+*   mr,
+*   marginRight,
+*   p,
+*   padding,
+*   pv,
+*   paddingVertical,
+*   ph,
+*   paddingHorizontal,
+*   pt,
+*   paddingTop,
+*   pb,
+*   paddingBottom,
+*   pl,
+*   paddingLeft,
+*   pr,
+*   paddingRight,
+*   height,
+*   maxHeight,
+*   maxWidth,
+*   minHeight,
+*   minWidth,
+*   width,
+*   bottom,
+*   left,
+*   right,
+*   top,
+*   flex,
+*   backgroundColor,
+*   border,
+*   borderColor,
+*   borderBottomColor,
+*   borderLeftColor,
+*   borderRightColor,
+*   borderTopColor,
+*   borderRadius,
+*   borderBottomLeftRadius,
+*   borderBottomRightRadius,
+*   borderTopLeftRadius,
+*   borderTopRightRadius,
+*   borderWidth,
+*   borderBottomWidth,
+*   borderLeftWidth,
+*   borderRightWidth,
+*   borderTopWidth,
+*   borderStyle,
+*   alignItems,
+*   alignSelf,
+*   flexBasis,
+*   flexDirection,
+*   flexGrow,
+*   flexShrink,
+*   flexWrap,
+*   justifyContent,
+*   opacity,
+*   overflow,
+*   position,
+*   zIndex,
+
+#### Text component
+Text component is just wrapper around Box component so all Box props can be passed too.
+
+*   fontFamily,
+*   size,
+*   fontSize,
+*   align,
+*   textAlign,
+*   bold,
+*   color,
+*   decoration,
+*   textDecoration,
+*   transform,
+*   textTransform,
+*   italic,
+*   lineHeight,
+
 
 ## License
 
-*react-component-boilerplate* is available under MIT. See LICENSE for more details.
-
+*basic-styling-components* are available under MIT. See LICENSE for more details.
