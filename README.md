@@ -84,7 +84,8 @@ export type themeType = {
     color: string,
     bold: 'bold' | 'normal' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
   },
-};```
+};
+```
 
 If you need to override default configuration or add some new attributes (eg. commonly used colors) you can do it by providing your own theme which will follow specified Flow theme type. You can pass your custom theme usgin Fela <ThemeProvider> which will pass defined theme to all child components using context.
 ```js
