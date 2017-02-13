@@ -6,7 +6,7 @@ This package provides abstraction of UI using two basic React components `Box` a
 
 Install this package via:
 ```
-npm i --save basic-styling-components
+npm i --save base-styling-components
 ```
 Prerequisites
 * [Fela.js](http://fela.js.org/)
