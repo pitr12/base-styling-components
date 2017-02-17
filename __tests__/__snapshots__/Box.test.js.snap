@@ -1,0 +1,13 @@
+exports[`test Box renders correctly 1`] = `
+<div
+  className="a b c d e f">
+  some text inside box component
+</div>
+`;
+
+exports[`test Box renders correctly with basic margin and padding 1`] = `
+<div
+  className="d a b c g h i f j k l e m n">
+  some text inside box component
+</div>
+`;

@@ -4,7 +4,8 @@ module.exports = {
   "env": {
     "browser": true,
     "jasmine": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "plugins": [
     "react"
@@ -19,6 +20,13 @@ module.exports = {
     "react/sort-comp": 0,
     "react/no-multi-comp": 0,
     "react/require-extension": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore",
+    }]
   }
 };

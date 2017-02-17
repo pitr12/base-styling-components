@@ -77,14 +77,17 @@
     "url": "https://github.com/pitr12/base-styling-components.git"
   },
   "jest": {
-    "collectCoverage": true,
+    "testRegex": "(__tests__\\/.*)(test|spec)\\.jsx?$",
+    "testEnvironment": "jsdom",
+    "verbose": true,
     "moduleFileExtensions": [
       "js",
       "jsx"
     ],
+    "setupFiles": ["./__tests__/config/enzymeSetup.js"],
     "moduleDirectories": [
       "node_modules",
-      "packages"
+      "src"
     ]
   },
   "keywords": [
@@ -95,5 +98,10 @@
   "license": "MIT",
   "pre-push": [
     "test"
-  ]
+  ],
+  "dependencies": {
+    "chai-enzyme": "^0.6.1",
+    "enzyme": "^2.7.1",
+    "react-test-renderer": "^15.4.2"
+  }
 }
