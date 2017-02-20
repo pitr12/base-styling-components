@@ -4,18 +4,30 @@ import { Provider, ThemeProvider } from 'react-fela';
 import prefixAll from 'inline-style-prefixer/static';
 import { defaultTheme } from '../../src';
 
-const prefixerPlugin = styleObject => prefixAll(styleObject);
-const config = {
-  plugins: [prefixerPlugin],
+const createFelaRenderer = () => {
+  const prefixerPlugin = styleObject => prefixAll(styleObject);
+  const config = {
+    plugins: [prefixerPlugin],
+  };
+  return createRenderer(config);
 };
-const felaRenderer = createRenderer(config);
 
-const nextMountNode = document.createElement('style');
-nextMountNode.id = 'fela-stylesheet';
-document.head.appendChild(nextMountNode);
+const getNextMountNode = () => {
+  const nextMountNode = document.createElement('style');
+  nextMountNode.id = 'fela-stylesheet';
+  const mountNode = document.getElementById('fela-stylesheet');
+
+  if (mountNode) {
+    const parentNode = mountNode.parentNode;
+    parentNode.replaceChild(nextMountNode, mountNode);
+  } else {
+    document.head.appendChild(nextMountNode);
+  }
+  return nextMountNode;
+};
 
 const rendererWithContext = node => (
-  <Provider renderer={felaRenderer} mountNode={nextMountNode}>
+  <Provider renderer={createFelaRenderer()} mountNode={getNextMountNode()}>
     <ThemeProvider theme={defaultTheme}>
       {node}
     </ThemeProvider>

@@ -48,7 +48,7 @@ const computeTextStyle = (theme = defaultTheme, {
   };
 
   if (lineHeight) {
-    if (typeof lineHeight === 'number') {
+    if (typeof lineHeight === 'number' || parseFloat(lineHeight)) {
       style = { ...style, lineHeight: `${lineHeight}px` };
     } else {
       style = { ...style, lineHeight };
@@ -56,7 +56,7 @@ const computeTextStyle = (theme = defaultTheme, {
   }
 
   if (fontSize) {
-    if (typeof fontSize === 'number') {
+    if (typeof fontSize === 'number' || parseFloat(fontSize)) {
       style = {
         ...style,
         fontSize: (

@@ -178,7 +178,7 @@ const computeBoxStyle = (theme = defaultTheme, {
 
   Object.keys(maybeScaleProps).forEach((prop) => {
     const value = maybeScaleProps[prop];
-    if (typeof value === 'number') {
+    if (typeof value === 'number' || parseFloat(value)) {
       style = {
         ...style,
         [prop]: ((value < theme.scale.length) ? `${theme.scale[value]}px` : `${value}px`),
@@ -205,7 +205,7 @@ const computeBoxStyle = (theme = defaultTheme, {
 
   Object.keys(maybePixelProps).forEach((prop) => {
     const value = maybePixelProps[prop];
-    if (typeof value === 'number') {
+    if (typeof value === 'number' || parseFloat(value)) {
       style = { ...style, [prop]: `${value}px` };
     } else if (value) {
       style = { ...style, [prop]: value };
@@ -223,7 +223,7 @@ const computeBoxStyle = (theme = defaultTheme, {
 
   Object.keys(maybePercentageProps).forEach((prop) => {
     const value = maybePercentageProps[prop];
-    if (typeof value === 'number') {
+    if (typeof value === 'number' || parseFloat(value)) {
       style = { ...style, [prop]: ((value > 0 && value <= 1) ? `${value * 100}%` : `${value}px`) };
     } else if (value) {
       style = { ...style, [prop]: value };

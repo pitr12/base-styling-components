@@ -1,13 +1,20 @@
 exports[`test Box renders correctly 1`] = `
 <div
-  className="a b c d e f">
+  className="a b c d e f g">
   some text inside box component
 </div>
 `;
 
-exports[`test Box renders correctly with basic margin and padding 1`] = `
+exports[`test Box renders correctly as button 1`] = `
+<button
+  className="a b c d e f g">
+  some text inside button
+</button>
+`;
+
+exports[`test Box renders correctly with set styling 1`] = `
 <div
-  className="d a b c g h i f j k l e m n">
+  className="a b c d e f g h i j k l m n o p">
   some text inside box component
 </div>
 `;
