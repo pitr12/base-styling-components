@@ -47,8 +47,10 @@ const computeTextStyle = (theme = defaultTheme, {
     color,
   };
 
+  const isNumber = /^-?\d+\.?\d*$/;
+
   if (lineHeight) {
-    if (typeof lineHeight === 'number' || parseFloat(lineHeight)) {
+    if (typeof lineHeight === 'number' || isNumber.test(lineHeight)) {
       style = { ...style, lineHeight: `${lineHeight}px` };
     } else {
       style = { ...style, lineHeight };
@@ -56,13 +58,14 @@ const computeTextStyle = (theme = defaultTheme, {
   }
 
   if (fontSize) {
-    if (typeof fontSize === 'number' || parseFloat(fontSize)) {
+    if (typeof fontSize === 'number' || isNumber.test(fontSize)) {
+      const value = parseFloat(fontSize);
       style = {
         ...style,
         fontSize: (
-          (fontSize < theme.textScale.length)
-          ? `${theme.textScale[fontSize]}px`
-          : `${fontSize}px`
+          (value < theme.textScale.length)
+          ? `${theme.textScale[value]}px`
+          : `${value}px`
         ),
       };
     } else {

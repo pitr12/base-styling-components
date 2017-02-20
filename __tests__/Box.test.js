@@ -188,6 +188,28 @@ it('should set correct box width using string value', () => {
   chai.assert(getStyleNode().includes(`width:${size}`));
 });
 
+it('should set correct box position', () => {
+  const position = 5;
+  mount(rendererWithContext(
+    <Box position="absolute" top={position}>
+      some text inside box component
+    </Box>
+  ));
+  chai.assert(getStyleNode().includes('position:absolute'));
+  chai.assert(getStyleNode().includes(`top:${position}px`));
+});
+
+it('should set correct box position using string value', () => {
+  const position = '10px';
+  mount(rendererWithContext(
+    <Box position="absolute" left={position}>
+      some text inside box component
+    </Box>
+  ));
+  chai.assert(getStyleNode().includes('position:absolute'));
+  chai.assert(getStyleNode().includes(`left:${position}`));
+});
+
 it('should set correct box pseudo classes', () => {
   mount(rendererWithContext(
     <Box

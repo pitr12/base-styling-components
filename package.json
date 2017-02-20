@@ -14,7 +14,7 @@
     "dist": "webpack",
     "dist:min": "webpack",
     "dist:modules": "rimraf ./dist-modules && babel ./src --presets babel-preset-es2015 --out-dir ./dist-modules",
-    "preversion": "npm run test",
+    "preversion": "npm run test:coverage",
     "prepublish": "npm run dist:modules && npm run flow-prepublish",
     "flow-prepublish": "flow-copy-source src dist-modules",
     "postinstall": "node lib/post_install.js"
