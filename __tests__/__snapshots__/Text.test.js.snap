@@ -1,0 +1,20 @@
+exports[`test Text renders correctly 1`] = `
+<div
+  className="a b c d e f g h i">
+  some text inside text component
+</div>
+`;
+
+exports[`test Text renders correctly as h1 1`] = `
+<h1
+  className="a b c d e f g h i">
+  some h1 title
+</h1>
+`;
+
+exports[`test Text renders correctly with set styling 1`] = `
+<div
+  className="a b c d e f g h i j k l m n o p q">
+  some text inside text component
+</div>
+`;
