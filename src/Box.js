@@ -65,6 +65,7 @@ export type BoxProps = {
   borderWidth?: number,
   alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline',
   alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline',
+  display?: 'inline' | 'block' | 'flex' | 'inline-block' | 'box' | 'inline-flex' | 'inline-table' | 'list-item' | 'run-in' | 'table' | 'table-caption' | 'table-column-group' | 'table-header-group' | 'table-footer-group' | 'table-row-group' | 'table-cell' | 'table-column' | 'table-row' | 'none' | 'initial' | 'inherit',
   flexBasis?: number | string,
   flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse',
   flexGrow?: number,
@@ -74,6 +75,7 @@ export type BoxProps = {
   opacity?: number,
   overflow?: 'visible' | 'hidden' | 'scroll',
   position?: 'absolute' | 'relative' | 'fixed',
+  verticalAlign?: string,
   zIndex?: number,
 };
 
@@ -142,6 +144,7 @@ const computeBoxStyle = (theme = defaultTheme, {
   borderStyle,
   alignItems,
   alignSelf,
+  display,
   flexBasis,
   flexDirection,
   flexGrow,
@@ -151,6 +154,7 @@ const computeBoxStyle = (theme = defaultTheme, {
   opacity,
   overflow,
   position,
+  verticalAlign,
   zIndex,
 
   ...props
@@ -158,7 +162,7 @@ const computeBoxStyle = (theme = defaultTheme, {
   let style = {
     position: 'relative',
     flexDirection: 'row',
-    display: 'flex',
+    display: 'block',
   };
 
   const maybeScaleProps = {
@@ -237,6 +241,7 @@ const computeBoxStyle = (theme = defaultTheme, {
     borderTopColor,
     alignItems,
     alignSelf,
+    display,
     borderStyle,
     flexBasis,
     flexDirection,
@@ -247,6 +252,7 @@ const computeBoxStyle = (theme = defaultTheme, {
     opacity,
     overflow,
     position,
+    verticalAlign,
     zIndex,
   };
 

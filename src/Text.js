@@ -7,8 +7,8 @@ import type { themeType } from './defaultTheme'; // eslint-disable-line no-dupli
 
 type TextProps = BoxProps & {
   fontFamily?: string,
-  size?: number,
-  fontSize?: number,
+  size?: number | string,
+  fontSize?: number | string,
   align?: 'left' | 'right' | 'center' | 'justify',
   textAlign?: 'left' | 'right' | 'center' | 'justify',
   bold?: boolean,
@@ -18,7 +18,7 @@ type TextProps = BoxProps & {
   transform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
   textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
   italic?: boolean,
-  lineHeight?: number,
+  lineHeight?: number | string,
 };
 
 type TextContext = {
