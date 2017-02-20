@@ -3,7 +3,7 @@
   "description": "Base react styling components",
   "author": "Peter Dubec",
   "user": "pitr12",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "jest",
@@ -85,7 +85,9 @@
       "js",
       "jsx"
     ],
-    "setupFiles": ["./__tests__/config/enzymeSetup.js"],
+    "setupFiles": [
+      "./__tests__/config/enzymeSetup.js"
+    ],
     "moduleDirectories": [
       "node_modules",
       "src"
