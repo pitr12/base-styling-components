@@ -57,20 +57,18 @@ const computeTextStyle = (theme = defaultTheme, {
     }
   }
 
-  if (fontSize) {
-    if (typeof fontSize === 'number' || isNumber.test(fontSize)) {
-      const value = parseFloat(fontSize);
-      style = {
-        ...style,
-        fontSize: (
-          (value < theme.textScale.length)
-          ? `${theme.textScale[value]}px`
-          : `${value}px`
-        ),
-      };
-    } else {
-      style = { ...style, fontSize };
-    }
+  if (typeof fontSize === 'number' || isNumber.test(fontSize)) {
+    const value = parseFloat(fontSize);
+    style = {
+      ...style,
+      fontSize: (
+        (value < theme.textScale.length)
+        ? `${theme.textScale[value]}px`
+        : `${value}px`
+      ),
+    };
+  } else if (fontSize) {
+    style = { ...style, fontSize };
   }
 
   if (textAlign) {

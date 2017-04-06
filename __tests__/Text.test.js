@@ -122,7 +122,7 @@ it('should set correct font size using string value without units', () => {
 });
 
 it('should set correct font size using scale value', () => {
-  const size = 4;
+  const size = 0;
   mount(rendererWithContext(
     <Text size={size}>
       some text inside box component
