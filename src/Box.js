@@ -77,6 +77,7 @@ export type BoxProps = {
   position?: 'absolute' | 'relative' | 'fixed',
   verticalAlign?: string,
   zIndex?: number,
+  boxSizing?: 'content-box' | 'border-box' | 'initial' | 'inherit',
 };
 
 type BoxContext = {
@@ -156,6 +157,7 @@ const computeBoxStyle = (theme = defaultTheme, {
   position,
   verticalAlign,
   zIndex,
+  boxSizing,
 
   ...props
 }) => {
@@ -163,6 +165,7 @@ const computeBoxStyle = (theme = defaultTheme, {
     position: 'relative',
     flexDirection: 'row',
     display: 'block',
+    boxSizing: 'border-box',
   };
 
   const isNumber = /^-?\d+\.?\d*$/;
@@ -265,6 +268,7 @@ const computeBoxStyle = (theme = defaultTheme, {
     position,
     verticalAlign,
     zIndex,
+    boxSizing,
   };
 
   Object.keys(otherProps).forEach((prop) => {
