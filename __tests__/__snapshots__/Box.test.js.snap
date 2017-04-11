@@ -1,20 +1,20 @@
 exports[`test Box renders correctly 1`] = `
 <div
-  className="a b c d e f g">
+  className="a b c d e f g h i">
   some text inside box component
 </div>
 `;
 
 exports[`test Box renders correctly as button 1`] = `
 <button
-  className="a b c d e f g">
+  className="a b c d e f g h i">
   some text inside button
 </button>
 `;
 
 exports[`test Box renders correctly with set styling 1`] = `
 <div
-  className="a b c d e f g h i j k l m n o p">
+  className="a b c d e f g h i j k l m n o p q r">
   some text inside box component
 </div>
 `;
