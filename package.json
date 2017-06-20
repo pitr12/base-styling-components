@@ -17,7 +17,8 @@
     "preversion": "npm run test:coverage",
     "prepublish": "npm run dist:modules && npm run flow-prepublish",
     "flow-prepublish": "flow-copy-source src dist-modules",
-    "postinstall": "node lib/post_install.js"
+    "postinstall": "node lib/post_install.js",
+    "flow": "flow"
   },
   "main": "dist-modules",
   "module": "src",
@@ -45,6 +46,7 @@
     "eslint-plugin-react": "^6.8.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "flow-bin": "^0.48.0",
     "flow-copy-source": "^1.1.0",
     "git-prepush-hook": "^1.0.1",
     "html-webpack-plugin": "^2.25.0",
@@ -67,10 +69,10 @@
     "webpack-merge": "^2.0.0"
   },
   "peerDependencies": {
-    "react": ">= 0.11.2 < 16.0.0",
     "fela": "^4.2.0",
     "fela-dom": "^4.2.0",
     "inline-style-prefixer": "^2.0.1",
+    "react": ">= 0.11.2 < 16.0.0",
     "react-fela": "^4.2.0"
   },
   "repository": {
@@ -105,6 +107,7 @@
   "dependencies": {
     "chai-enzyme": "^0.6.1",
     "enzyme": "^2.7.1",
+    "prop-types": "^15.5.10",
     "react-test-renderer": "^15.4.2"
   }
 }

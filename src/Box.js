@@ -1,39 +1,43 @@
 // @flow
-import React, { PropTypes } from 'react';
-import defaultTheme from './defaultTheme';
-import type { themeType } from './defaultTheme'; // eslint-disable-line no-duplicate-imports
+import React from 'react';
+import PropTypes from 'prop-types';
+import defaultTheme, { getMarginOrPadding, getRadius, getColor } from './defaultTheme';
+import type { ThemeType, ThemeColorName } from './defaultTheme'; // eslint-disable-line no-duplicate-imports
+
+type MarginOrPadding = "small" | "medium" | "large" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | number | string;
+type BorderRadius = "small" | "medium" | "circle" | string | number
 
 export type BoxProps = {
   as?: string | () => React.Element<*>,
   style?: Object,
-  m?: number | string,
-  margin?: number | string,
-  mh?: number | string,
-  marginHorizontal?: number | string,
-  mv?: number | string,
-  marginVertical?: number | string,
-  mb?: number | string,
-  marginBottom?: number | string,
-  ml?: number | string,
-  marginLeft?: number | string,
-  mr?: number | string,
-  marginRight?: number | string,
-  mt?: number | string,
-  marginTop?: number | string,
-  p?: number | string,
-  padding?: number | string,
-  ph?: number | string,
-  paddingHorizontal?: number | string,
-  pv?: number | string,
-  paddingVertical?: number | string,
-  pb?: number | string,
-  paddingBottom?: number | string,
-  pl?: number | string,
-  paddingLeft?: number | string,
-  pr?: number | string,
-  paddingRight?: number | string,
-  pt?: number | string,
-  paddingTop?: number | string,
+  m?: MarginOrPadding,
+  margin?: MarginOrPadding,
+  mh?: MarginOrPadding,
+  marginHorizontal?: MarginOrPadding,
+  mv?: MarginOrPadding,
+  marginVertical?: MarginOrPadding,
+  mb?: MarginOrPadding,
+  marginBottom?: MarginOrPadding,
+  ml?: MarginOrPadding,
+  marginLeft?: MarginOrPadding,
+  mr?: MarginOrPadding,
+  marginRight?: MarginOrPadding,
+  mt?: MarginOrPadding,
+  marginTop?: MarginOrPadding,
+  p?: MarginOrPadding,
+  padding?: MarginOrPadding,
+  ph?: MarginOrPadding,
+  paddingHorizontal?: MarginOrPadding,
+  pv?: MarginOrPadding,
+  paddingVertical?: MarginOrPadding,
+  pb?: MarginOrPadding,
+  paddingBottom?: MarginOrPadding,
+  pl?: MarginOrPadding,
+  paddingLeft?: MarginOrPadding,
+  pr?: MarginOrPadding,
+  paddingRight?: MarginOrPadding,
+  pt?: MarginOrPadding,
+  paddingTop?: MarginOrPadding,
   height?: number | string,
   maxHeight?: number | string,
   maxWidth?: number | string,
@@ -45,22 +49,23 @@ export type BoxProps = {
   right?: number | string,
   top?: number | string,
   flex?: number,
-  backgroundColor?: string,
+  background?: ThemeColorName,
+  backgroundColor?: ThemeColorName,
   border?: string,
   borderBottomColor?: string,
-  borderBottomLeftRadius?: number,
-  borderBottomRightRadius?: number,
   borderBottomWidth?: number,
   borderColor?: string,
   borderLeftColor?: string,
   borderLeftWidth?: number,
-  borderRadius?: number,
   borderRightColor?: string,
   borderRightWidth?: number,
   borderStyle?: 'solid' | 'dotted' | 'dashed',
   borderTopColor?: string,
-  borderTopLeftRadius?: number,
-  borderTopRightRadius?: number,
+  borderRadius?: BorderRadius,
+  borderTopLeftRadius?: BorderRadius,
+  borderTopRightRadius?: BorderRadius,
+  borderBottomLeftRadius?: BorderRadius,
+  borderBottomRightRadius?: BorderRadius,
   borderTopWidth?: number,
   borderWidth?: number,
   alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline',
@@ -82,7 +87,7 @@ export type BoxProps = {
 
 type BoxContext = {
   renderer: any,
-  theme: themeType,
+  theme: ThemeType,
 };
 
 const computeBoxStyle = (theme = defaultTheme, {
@@ -125,7 +130,8 @@ const computeBoxStyle = (theme = defaultTheme, {
   right,
   top,
   flex,
-  backgroundColor,
+  background,
+  backgroundColor = background,
   border,
   borderColor,
   borderBottomColor,
@@ -182,17 +188,8 @@ const computeBoxStyle = (theme = defaultTheme, {
   };
 
   Object.keys(maybeScaleProps).forEach((prop) => {
-    let value = maybeScaleProps[prop];
-    if (value) {
-      if (typeof value === 'number' || isNumber.test(value)) {
-        value = parseFloat(value);
-        style = {
-          ...style,
-          [prop]: ((value < theme.scale.length) ? `${theme.scale[value]}px` : `${value}px`),
-        };
-      } else {
-        style = { ...style, [prop]: value };
-      }
+    if (maybeScaleProps[prop]) {
+      style = { ...style, [prop]: getMarginOrPadding(maybeScaleProps[prop]) };
     }
   });
 
@@ -205,10 +202,6 @@ const computeBoxStyle = (theme = defaultTheme, {
     borderLeftWidth,
     borderRightWidth,
     borderTopWidth,
-    borderBottomLeftRadius,
-    borderBottomRightRadius,
-    borderTopLeftRadius,
-    borderTopRightRadius,
   };
 
   Object.keys(maybePixelProps).forEach((prop) => {
@@ -220,6 +213,19 @@ const computeBoxStyle = (theme = defaultTheme, {
       } else {
         style = { ...style, [prop]: value };
       }
+    }
+  });
+
+  const borderRadiusProps = {
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+  };
+
+  Object.keys(borderRadiusProps).forEach((prop) => {
+    if (borderRadiusProps[prop]) {
+      style = { ...style, [prop]: getRadius(borderRadiusProps[prop]) };
     }
   });
 
@@ -244,9 +250,12 @@ const computeBoxStyle = (theme = defaultTheme, {
     }
   });
 
+  if (backgroundColor) {
+    style = { ...style, backgroundColor: getColor(backgroundColor) };
+  }
+
   const otherProps = {
     flex,
-    backgroundColor,
     border,
     borderColor,
     borderBottomColor,

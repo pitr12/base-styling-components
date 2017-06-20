@@ -1,18 +1,31 @@
 // @flow
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import type { BoxProps } from './Box';
 import Box from './Box';  // eslint-disable-line no-duplicate-imports
-import defaultTheme from './defaultTheme';
-import type { themeType } from './defaultTheme'; // eslint-disable-line no-duplicate-imports
+import defaultTheme, {
+  getTextSize,
+  getTextLineHeight,
+  getColor,
+  getFontWeight,
+  getFontFamily,
+} from './defaultTheme';
+import type { // eslint-disable-line no-duplicate-imports
+  ThemeType,
+  ThemeFontSize,
+  ThemeColorName,
+  ThemeFontFamily,
+  ThemeFontWeight,
+} from './defaultTheme';
 
 type TextProps = BoxProps & {
-  fontFamily?: string,
-  size?: number | string,
-  fontSize?: number | string,
+  fontFamily?: ThemeFontFamily,
+  fontWeight?: ThemeFontWeight,
+  size?: ThemeFontSize,
+  fontSize?: ThemeFontSize,
   align?: 'left' | 'right' | 'center' | 'justify',
   textAlign?: 'left' | 'right' | 'center' | 'justify',
-  bold?: boolean,
-  color?: string,
+  color?: ThemeColorName,
   decoration?: 'none' | 'underline' | 'line-through',
   textDecoration?: 'none' | 'underline' | 'line-through',
   transform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
@@ -22,16 +35,16 @@ type TextProps = BoxProps & {
 };
 
 type TextContext = {
-  theme: themeType,
+  theme: ThemeType,
 };
 
 const computeTextStyle = (theme = defaultTheme, {
   fontFamily = theme.text.fontFamily,
-  size,
+  fontWeight = theme.text.fontWeight,
+  size = theme.text.size,
   fontSize = size,
   align,
   textAlign = align,
-  bold,
   color = theme.text.color,
   decoration,
   textDecoration = decoration,
@@ -43,11 +56,26 @@ const computeTextStyle = (theme = defaultTheme, {
   ...props
 }) => {
   let style = {
-    fontFamily,
-    color,
+    fontFamily: getFontFamily(fontFamily),
   };
 
   const isNumber = /^-?\d+\.?\d*$/;
+
+  if (color) {
+    style = { ...style, color: getColor(color) };
+  }
+
+  if (fontWeight) {
+    style = { ...style, fontWeight: getFontWeight(fontWeight) };
+  }
+
+  if (fontSize || fontSize === 0) {
+    style = {
+      ...style,
+      fontSize: getTextSize(fontSize),
+      lineHeight: getTextLineHeight(fontSize),
+    };
+  }
 
   if (lineHeight) {
     if (typeof lineHeight === 'number' || isNumber.test(lineHeight)) {
@@ -57,26 +85,8 @@ const computeTextStyle = (theme = defaultTheme, {
     }
   }
 
-  if (typeof fontSize === 'number' || isNumber.test(fontSize)) {
-    const value = parseFloat(fontSize);
-    style = {
-      ...style,
-      fontSize: (
-        (value < theme.textScale.length)
-        ? `${theme.textScale[value]}px`
-        : `${value}px`
-      ),
-    };
-  } else if (fontSize) {
-    style = { ...style, fontSize };
-  }
-
   if (textAlign) {
     style = { ...style, textAlign };
-  }
-
-  if (bold) {
-    style = { ...style, fontWeight: theme.text.bold };
   }
 
   if (textDecoration) {

@@ -32,8 +32,8 @@ it('should set correct default styling', () => {
   mount(rendererWithContext(
     <Text>some text inside box component</Text>
   ));
-  chai.assert(getStyleNode().includes(`font-family:${defaultTheme.text.fontFamily}`));
-  chai.assert(getStyleNode().includes(`color:${defaultTheme.text.color}`));
+  chai.assert(getStyleNode().includes(`font-family:${defaultTheme.getFontFamily(defaultTheme.text.fontFamily)}`));
+  chai.assert(getStyleNode().includes(`color:${defaultTheme.getColor(defaultTheme.text.color)}`));
 });
 
 it('should set correct custom styling', () => {
@@ -128,16 +128,7 @@ it('should set correct font size using scale value', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`font-size:${defaultTheme.textScale[size]}px`));
-});
-
-it('should set text as bold', () => {
-  mount(rendererWithContext(
-    <Text bold>
-      some text inside box component
-    </Text>
-  ));
-  chai.assert(getStyleNode().includes(`font-weight:${defaultTheme.text.bold}`));
+  chai.assert(getStyleNode().includes(`font-size:${defaultTheme.textScale[size]}`));
 });
 
 it('should set text as italic', () => {

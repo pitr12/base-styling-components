@@ -154,7 +154,7 @@ it('should set correct box margin using scale value', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`margin-left:${defaultTheme.scale[size]}px`));
+  chai.assert(getStyleNode().includes(`margin-left:${defaultTheme.scale[size]}`));
 });
 
 it('should set correct box size', () => {
