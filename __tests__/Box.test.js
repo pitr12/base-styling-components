@@ -1,11 +1,16 @@
+// @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import chai from 'chai';
-import { Box, defaultTheme } from '../src';
+import { Box } from '../src';
+import { getRadius, getMarginOrPadding } from '../src/defaultTheme';
 import rendererWithContext from './helpers/rendererWithContext';
 
-const getStyleNode = () => (document.getElementById('fela-stylesheet').textContent);
+const getStyleNode = () => {
+  const node = document.getElementById('fela-stylesheet');
+  return node && node.textContent;
+};
 
 test('Box renders correctly', () => {
   const tree = renderer.create(rendererWithContext(
@@ -40,10 +45,12 @@ it('should set correct styling', () => {
     </Box>
   ));
   const styleNode = getStyleNode();
-  chai.assert(styleNode.includes('display:block'));
-  chai.assert(styleNode.includes('background-color:#000000'));
-  chai.assert(styleNode.includes('border:2px solid #eeeeee'));
-  chai.assert(styleNode.includes('z-index:3'));
+  if (styleNode) {
+    chai.assert(styleNode.includes('display:block'));
+    chai.assert(styleNode.includes('background-color:#000000'));
+    chai.assert(styleNode.includes('border:2px solid #eeeeee'));
+    chai.assert(styleNode.includes('z-index:3'));
+  }
 });
 
 it('should set correct styling using style prop', () => {
@@ -60,10 +67,12 @@ it('should set correct styling using style prop', () => {
     </Box>
   ));
   const styleNode = getStyleNode();
-  chai.assert(styleNode.includes('display:block'));
-  chai.assert(styleNode.includes('background-color:#000000'));
-  chai.assert(styleNode.includes('border:2px solid #eeeeee'));
-  chai.assert(styleNode.includes('z-index:3'));
+  if (styleNode) {
+    chai.assert(styleNode.includes('display:block'));
+    chai.assert(styleNode.includes('background-color:#000000'));
+    chai.assert(styleNode.includes('border:2px solid #eeeeee'));
+    chai.assert(styleNode.includes('z-index:3'));
+  }
 });
 
 
@@ -75,10 +84,12 @@ it('should set correct box margin', () => {
     </Box>
   ));
   const styleNode = getStyleNode();
-  chai.assert(styleNode.includes(`margin-top:${size}px`));
-  chai.assert(styleNode.includes(`margin-bottom:${size}px`));
-  chai.assert(styleNode.includes(`margin-right:${size}px`));
-  chai.assert(styleNode.includes(`margin-left:${size}px`));
+  if (styleNode) {
+    chai.assert(styleNode.includes(`margin-top:${size}px`));
+    chai.assert(styleNode.includes(`margin-bottom:${size}px`));
+    chai.assert(styleNode.includes(`margin-right:${size}px`));
+    chai.assert(styleNode.includes(`margin-left:${size}px`));
+  }
 });
 
 it('should set correct box padding', () => {
@@ -90,10 +101,12 @@ it('should set correct box padding', () => {
     </Box>
   ));
   const styleNode = getStyleNode();
-  chai.assert(styleNode.includes(`padding-top:${size}px`));
-  chai.assert(styleNode.includes(`padding-bottom:${size}px`));
-  chai.assert(styleNode.includes(`padding-right:${size}px`));
-  chai.assert(styleNode.includes(`padding-left:${size}px`));
+  if (styleNode) {
+    chai.assert(styleNode.includes(`padding-top:${size}px`));
+    chai.assert(styleNode.includes(`padding-bottom:${size}px`));
+    chai.assert(styleNode.includes(`padding-right:${size}px`));
+    chai.assert(styleNode.includes(`padding-left:${size}px`));
+  }
 });
 
 it('should set correct box margin using shorthand property', () => {
@@ -103,7 +116,8 @@ it('should set correct box margin using shorthand property', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`margin-left:${size}px`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`margin-left:${size}px`));
 });
 
 it('should set correct box padding using shorthand property', () => {
@@ -113,7 +127,8 @@ it('should set correct box padding using shorthand property', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`padding-top:${size}px`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`padding-top:${size}px`));
 });
 
 it('should set correct box margin using string value with units', () => {
@@ -123,7 +138,8 @@ it('should set correct box margin using string value with units', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`margin-top:${size}`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`margin-top:${size}`));
 });
 
 it('should set correct box margin using string value without units', () => {
@@ -133,7 +149,8 @@ it('should set correct box margin using string value without units', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`margin-bottom:${size}px`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`margin-bottom:${size}px`));
 });
 
 it('should set correct box margin using string 0 auto', () => {
@@ -143,8 +160,11 @@ it('should set correct box margin using string 0 auto', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`margin-left:${size}`));
-  chai.assert(getStyleNode().includes(`margin-right:${size}`));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes(`margin-left:${size}`));
+    chai.assert(styleNode.includes(`margin-right:${size}`));
+  }
 });
 
 it('should set correct box margin using scale value', () => {
@@ -154,7 +174,8 @@ it('should set correct box margin using scale value', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`margin-left:${defaultTheme.scale[size]}`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`margin-left:${getMarginOrPadding(size)}`));
 });
 
 it('should set correct box size', () => {
@@ -164,8 +185,11 @@ it('should set correct box size', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`width:${size}px`));
-  chai.assert(getStyleNode().includes(`height:${size}px`));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes(`width:${size}px`));
+    chai.assert(styleNode.includes(`height:${size}px`));
+  }
 });
 
 it('should set correct percentage box width', () => {
@@ -175,7 +199,8 @@ it('should set correct percentage box width', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`width:${size * 100}%`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`width:${size * 100}%`));
 });
 
 it('should set correct box width using string value', () => {
@@ -185,7 +210,8 @@ it('should set correct box width using string value', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes(`width:${size}`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`width:${size}`));
 });
 
 it('should set correct box position', () => {
@@ -195,8 +221,11 @@ it('should set correct box position', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes('position:absolute'));
-  chai.assert(getStyleNode().includes(`top:${position}px`));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes('position:absolute'));
+    chai.assert(styleNode.includes(`top:${position}px`));
+  }
 });
 
 it('should set correct box position using string value', () => {
@@ -206,8 +235,11 @@ it('should set correct box position using string value', () => {
       some text inside box component
     </Box>
   ));
-  chai.assert(getStyleNode().includes('position:absolute'));
-  chai.assert(getStyleNode().includes(`left:${position}`));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes('position:absolute'));
+    chai.assert(styleNode.includes(`left:${position}`));
+  }
 });
 
 it('should set correct box pseudo classes', () => {
@@ -223,6 +255,38 @@ it('should set correct box pseudo classes', () => {
       hover buttonn
     </Box>
   ));
-  chai.assert(getStyleNode().includes('background-color:red'));
-  chai.assert(getStyleNode().includes(':hover{background-color:green}'));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes('background-color:red'));
+    chai.assert(styleNode.includes(':hover{background-color:green}'));
+  }
+});
+
+it('should set correct box border radius using scale', () => {
+  const scale = 'small';
+  mount(rendererWithContext(
+    <Box borderRadius={scale}>
+      some text inside box component
+    </Box>
+  ));
+  const expectedRadius = getRadius(scale);
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes(`border-bottom-right-radius:${expectedRadius}`));
+    chai.assert(styleNode.includes(`border-bottom-left-radius:${expectedRadius}`));
+    chai.assert(styleNode.includes(`border-top-right-radius:${expectedRadius}`));
+    chai.assert(styleNode.includes(`border-top-left-radius:${expectedRadius}`));
+  }
+});
+
+it('should set correct box border radius using number', () => {
+  const size = 20;
+  mount(rendererWithContext(
+    <Box borderBottomLeftRadius={size}>
+      some text inside box component
+    </Box>
+  ));
+  const styleNode = getStyleNode();
+  const expectedRadius = getRadius(20);
+  styleNode && chai.assert(styleNode.includes(`border-bottom-left-radius:${expectedRadius}`));
 });

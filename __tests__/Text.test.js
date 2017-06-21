@@ -1,11 +1,16 @@
+// @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import chai from 'chai';
 import { Text, defaultTheme } from '../src';
+import { getFontFamily, getColor, getFontWeight, getTextSize } from '../src/defaultTheme';
 import rendererWithContext from './helpers/rendererWithContext';
 
-const getStyleNode = () => (document.getElementById('fela-stylesheet').textContent);
+const getStyleNode = () => {
+  const node = document.getElementById('fela-stylesheet');
+  return node && node.textContent;
+};
 
 test('Text renders correctly', () => {
   const tree = renderer.create(rendererWithContext(
@@ -32,8 +37,11 @@ it('should set correct default styling', () => {
   mount(rendererWithContext(
     <Text>some text inside box component</Text>
   ));
-  chai.assert(getStyleNode().includes(`font-family:${defaultTheme.getFontFamily(defaultTheme.text.fontFamily)}`));
-  chai.assert(getStyleNode().includes(`color:${defaultTheme.getColor(defaultTheme.text.color)}`));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes(`font-family:${getFontFamily(defaultTheme.text.fontFamily)}`));
+    chai.assert(styleNode.includes(`color:${getColor(defaultTheme.text.color)}`));
+  }
 });
 
 it('should set correct custom styling', () => {
@@ -42,8 +50,11 @@ it('should set correct custom styling', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes('font-family:Arial'));
-  chai.assert(getStyleNode().includes('font-size:30px'));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes('font-family:Arial'));
+    chai.assert(styleNode.includes('font-size:30px'));
+  }
 });
 
 it('should set correct custom styling using style porp', () => {
@@ -57,8 +68,11 @@ it('should set correct custom styling using style porp', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes('font-family:Arial'));
-  chai.assert(getStyleNode().includes('font-size:30px'));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes('font-family:Arial'));
+    chai.assert(styleNode.includes('font-size:30px'));
+  }
 });
 
 it('should set correct font family', () => {
@@ -68,7 +82,8 @@ it('should set correct font family', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`font-family:${font}`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`font-family:${font}`));
 });
 
 it('should set correct line height', () => {
@@ -78,7 +93,8 @@ it('should set correct line height', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`line-height:${size}px`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`line-height:${size}px`));
 });
 
 it('should set correct line height using string value with units', () => {
@@ -88,7 +104,8 @@ it('should set correct line height using string value with units', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`line-height:${size}`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`line-height:${size}`));
 });
 
 it('should set correct font size', () => {
@@ -98,7 +115,8 @@ it('should set correct font size', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`font-size:${size}px`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`font-size:${size}px`));
 });
 
 it('should set correct font size using string value with units', () => {
@@ -108,7 +126,8 @@ it('should set correct font size using string value with units', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`font-size:${size}`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`font-size:${size}`));
 });
 
 it('should set correct font size using string value without units', () => {
@@ -118,7 +137,8 @@ it('should set correct font size using string value without units', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`font-size:${size}px`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`font-size:${size}px`));
 });
 
 it('should set correct font size using scale value', () => {
@@ -128,7 +148,8 @@ it('should set correct font size using scale value', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes(`font-size:${defaultTheme.textScale[size]}`));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`font-size:${defaultTheme.textScale[size]}`));
 });
 
 it('should set text as italic', () => {
@@ -137,7 +158,8 @@ it('should set text as italic', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes('font-style:italic'));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes('font-style:italic'));
 });
 
 it('should transform text to uppercase', () => {
@@ -146,7 +168,8 @@ it('should transform text to uppercase', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes('text-transform:uppercase'));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes('text-transform:uppercase'));
 });
 
 it('should align text to center', () => {
@@ -155,7 +178,8 @@ it('should align text to center', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes('text-align:center'));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes('text-align:center'));
 });
 
 it('should underline text', () => {
@@ -164,7 +188,8 @@ it('should underline text', () => {
       some text inside box component
     </Text>
   ));
-  chai.assert(getStyleNode().includes('text-decoration:underline'));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes('text-decoration:underline'));
 });
 
 it('should set correct text pseudo classes', () => {
@@ -180,6 +205,42 @@ it('should set correct text pseudo classes', () => {
       hover buttonn
     </Text>
   ));
-  chai.assert(getStyleNode().includes('color:red'));
-  chai.assert(getStyleNode().includes(':hover{color:green}'));
+  const styleNode = getStyleNode();
+  if (styleNode) {
+    chai.assert(styleNode.includes('color:red'));
+    chai.assert(styleNode.includes(':hover{color:green}'));
+  }
+});
+
+it('should set correct text color', () => {
+  const color = 'black';
+  mount(rendererWithContext(
+    <Text color={color}>
+      some text inside box component
+    </Text>
+  ));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`color:${getColor(color)}`));
+});
+
+it('should set correct fontWeight', () => {
+  const fontWeight = 'light';
+  mount(rendererWithContext(
+    <Text fontWeight={fontWeight}>
+      some text inside box component
+    </Text>
+  ));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`font-weight:${getFontWeight(fontWeight)}`));
+});
+
+it('should set correct fontSize', () => {
+  const size = 3;
+  mount(rendererWithContext(
+    <Text size={size}>
+      some text inside box component
+    </Text>
+  ));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes(`font-size:${getTextSize(size)}`));
 });
