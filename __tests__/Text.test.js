@@ -39,8 +39,8 @@ it('should set correct default styling', () => {
   ));
   const styleNode = getStyleNode();
   if (styleNode) {
-    chai.assert(styleNode.includes(`font-family:${getFontFamily(defaultTheme.text.fontFamily)}`));
-    chai.assert(styleNode.includes(`color:${getColor(defaultTheme.text.color)}`));
+    chai.assert(styleNode.includes(`font-family:${getFontFamily(defaultTheme.text.fontFamily, defaultTheme)}`));
+    chai.assert(styleNode.includes(`color:${getColor(defaultTheme.text.color, defaultTheme)}`));
   }
 });
 
@@ -220,7 +220,7 @@ it('should set correct text color', () => {
     </Text>
   ));
   const styleNode = getStyleNode();
-  styleNode && chai.assert(styleNode.includes(`color:${getColor(color)}`));
+  styleNode && chai.assert(styleNode.includes(`color:${getColor(color, defaultTheme)}`));
 });
 
 it('should set correct fontWeight', () => {
@@ -231,7 +231,7 @@ it('should set correct fontWeight', () => {
     </Text>
   ));
   const styleNode = getStyleNode();
-  styleNode && chai.assert(styleNode.includes(`font-weight:${getFontWeight(fontWeight)}`));
+  styleNode && chai.assert(styleNode.includes(`font-weight:${getFontWeight(fontWeight, defaultTheme)}`));
 });
 
 it('should set correct fontSize', () => {
@@ -242,5 +242,5 @@ it('should set correct fontSize', () => {
     </Text>
   ));
   const styleNode = getStyleNode();
-  styleNode && chai.assert(styleNode.includes(`font-size:${getTextSize(size)}`));
+  styleNode && chai.assert(styleNode.includes(`font-size:${getTextSize(size, defaultTheme)}`));
 });

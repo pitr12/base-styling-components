@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
 import chai from 'chai';
 import { Box } from '../src';
-import { getRadius, getMarginOrPadding } from '../src/defaultTheme';
+import defaultTheme, { getRadius, getMarginOrPadding } from '../src/defaultTheme';
 import rendererWithContext from './helpers/rendererWithContext';
 
 const getStyleNode = () => {
@@ -175,7 +175,7 @@ it('should set correct box margin using scale value', () => {
     </Box>
   ));
   const styleNode = getStyleNode();
-  styleNode && chai.assert(styleNode.includes(`margin-left:${getMarginOrPadding(size)}`));
+  styleNode && chai.assert(styleNode.includes(`margin-left:${getMarginOrPadding(size, defaultTheme)}`));
 });
 
 it('should set correct box size', () => {
@@ -269,7 +269,7 @@ it('should set correct box border radius using scale', () => {
       some text inside box component
     </Box>
   ));
-  const expectedRadius = getRadius(scale);
+  const expectedRadius = getRadius(scale, defaultTheme);
   const styleNode = getStyleNode();
   if (styleNode) {
     chai.assert(styleNode.includes(`border-bottom-right-radius:${expectedRadius}`));

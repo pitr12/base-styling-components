@@ -1,7 +1,7 @@
 // @flow
 
 // theme types
-export type ThemeColorName = string | 'black' | 'gray' | 'white';
+export type ThemeColorName = string | 'black' | 'gray' | 'white' | 'brandColor';
 export type ThemeFontFamily = 'roboto' | 'roboto-condensed' | string;
 export type ThemeFontWeight = 'light' | 'regular' | 'bold' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 export type ThemeFontSize = 0 | 1 | 2 | 3 | 4 | 5 | number | string;
@@ -22,13 +22,13 @@ export type ThemeType = {
     size: ThemeFontSize,
   },
   colors: {[ThemeColorName]: string},
-  getColor?: (ThemeColorName)=>string,
-  getFontFamily?: (ThemeFontFamily)=>string,
-  getFontWeight?: (ThemeFontWeight)=>number,
-  getMarginOrPadding?: (ThemeScale | string | number)=>string,
-  getRadius?: (ThemeBorderRadius | string | number)=>string,
-  getTextLineHeight?: (number | string)=>string,
-  getTextSize?: (number | string)=>string,
+  getColor?: (string, any)=>string,
+  getFontFamily?: (string, any)=>string,
+  getFontWeight?: (ThemeFontWeight, any)=>number,
+  getMarginOrPadding?: (ThemeScale | string | number, any)=>string,
+  getRadius?: (ThemeBorderRadius | string | number, any)=>string,
+  getTextLineHeight?: (number | string, any)=>string,
+  getTextSize?: (number | string, any)=>string,
 };
 
 export const isNumber = /^-?\d+\.?\d*$/;
@@ -38,12 +38,12 @@ const theme: ThemeType = {
    * Margin & padding
    */
   scale: [
-    '0px', '2px', '4px', '8px', '16px', '32px', '64px',
+    '0px', '2px', '4px', '8px', '16px', '24px', '32px',
   ],
   scalePreset: {
-    small: '5px',
-    medium: '10px',
-    large: '20px',
+    small: '8px',
+    medium: '16px',
+    large: '24px',
   },
   /**
    * Border radius
@@ -82,6 +82,7 @@ const theme: ThemeType = {
    */
   colors: {
     black: '#121212',
+    brandColor: '#121212',
     gray: '#e6e6e6',
     white: 'white',
   },
@@ -90,50 +91,54 @@ const theme: ThemeType = {
 /**
  * Helper fns
  */
-export function getColor(nameOrColor: ThemeColorName): string {
-  return theme.colors[nameOrColor] || nameOrColor;
+export function getColor(nameOrColor: string, currentTheme: any): string {
+  return currentTheme.colors[nameOrColor] || nameOrColor;
 }
 
-export function getFontFamily(name: ThemeFontFamily): string {
-  return theme.fontFamily[name] || name;
+export function getFontFamily(name: string, currentTheme: any): string {
+  return currentTheme.fontFamily[name] || name;
 }
 
-export function getFontWeight(nameOrValue: ThemeFontWeight): number {
+export function getFontWeight(nameOrValue: ThemeFontWeight, currentTheme: any): number {
   // $FlowFixMe
-  return theme.fontWeight[nameOrValue] || nameOrValue;
+  return currentTheme.fontWeight[nameOrValue] || nameOrValue;
 }
 
-export function getMarginOrPadding(nameOrValue: ThemeScale | string | number): string {
+export function getMarginOrPadding(
+  nameOrValue: ThemeScale | string | number, currentTheme: any
+): string {
   let val = nameOrValue;
   if (typeof nameOrValue === 'number' || isNumber.test(nameOrValue)) {
     val = parseFloat(val);
-    return ((val < theme.scale.length) ? theme.scale[val] : `${val}px`);
+    return ((val < currentTheme.scale.length) ? currentTheme.scale[val] : `${val}px`);
   }
-  val = theme.scalePreset[nameOrValue];
+  val = currentTheme.scalePreset[nameOrValue];
   return val === undefined ? nameOrValue : val;
 }
 
-export function getRadius(nameOrValue: ThemeBorderRadius | string | number): string {
+export function getRadius(
+  nameOrValue: ThemeBorderRadius | string | number, currentTheme: any
+): string {
   let val = nameOrValue;
   if (typeof nameOrValue === 'number' || isNumber.test(nameOrValue)) {
     return `${parseFloat(val)}px`;
   }
-  val = theme.borderRadius[nameOrValue];
+  val = currentTheme.borderRadius[nameOrValue];
   return val === undefined ? nameOrValue : val;
 }
 
-export function getTextLineHeight(size: number | string): string {
+export function getTextLineHeight(size: number | string, currentTheme: any): string {
   if (typeof size === 'number' || isNumber.test(size)) {
     const value = parseFloat(size);
-    return ((value < theme.textLineHeight.length) ? theme.textLineHeight[value] : `${value}px`);
+    return ((value < currentTheme.textLineHeight.length) ? currentTheme.textLineHeight[value] : `${value}px`);
   }
   return size;
 }
 
-export function getTextSize(size: number | string): string {
+export function getTextSize(size: number | string, currentTheme: any): string {
   if (typeof size === 'number' || isNumber.test(size)) {
     const value = parseFloat(size);
-    return ((value < theme.textScale.length) ? theme.textScale[value] : `${value}px`);
+    return ((value < currentTheme.textScale.length) ? currentTheme.textScale[value] : `${value}px`);
   }
   return size;
 }

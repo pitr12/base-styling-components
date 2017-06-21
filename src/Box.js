@@ -189,7 +189,7 @@ const computeBoxStyle = (theme = defaultTheme, {
 
   Object.keys(maybeScaleProps).forEach((prop) => {
     if (maybeScaleProps[prop]) {
-      style = { ...style, [prop]: getMarginOrPadding(maybeScaleProps[prop]) };
+      style = { ...style, [prop]: getMarginOrPadding(maybeScaleProps[prop], theme) };
     }
   });
 
@@ -225,7 +225,7 @@ const computeBoxStyle = (theme = defaultTheme, {
 
   Object.keys(borderRadiusProps).forEach((prop) => {
     if (borderRadiusProps[prop]) {
-      style = { ...style, [prop]: getRadius(borderRadiusProps[prop]) };
+      style = { ...style, [prop]: getRadius(borderRadiusProps[prop], theme) };
     }
   });
 
@@ -251,7 +251,7 @@ const computeBoxStyle = (theme = defaultTheme, {
   });
 
   if (backgroundColor) {
-    style = { ...style, backgroundColor: getColor(backgroundColor) };
+    style = { ...style, backgroundColor: getColor(backgroundColor, theme) };
   }
 
   const otherProps = {

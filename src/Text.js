@@ -56,24 +56,24 @@ const computeTextStyle = (theme = defaultTheme, {
   ...props
 }) => {
   let style = {
-    fontFamily: getFontFamily(fontFamily),
+    fontFamily: getFontFamily(fontFamily, theme),
   };
 
   const isNumber = /^-?\d+\.?\d*$/;
 
   if (color) {
-    style = { ...style, color: getColor(color) };
+    style = { ...style, color: getColor(color, theme) };
   }
 
   if (fontWeight) {
-    style = { ...style, fontWeight: getFontWeight(fontWeight) };
+    style = { ...style, fontWeight: getFontWeight(fontWeight, theme) };
   }
 
   if (fontSize || fontSize === 0) {
     style = {
       ...style,
-      fontSize: getTextSize(fontSize),
-      lineHeight: getTextLineHeight(fontSize),
+      fontSize: getTextSize(fontSize, theme),
+      lineHeight: getTextLineHeight(fontSize, theme),
     };
   }
 
