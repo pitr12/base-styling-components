@@ -21,6 +21,7 @@ module.exports = {
     "react/no-multi-comp": 0,
     "react/require-extension": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": 0,
     "comma-dangle": ["error", {
         "arrays": "always-multiline",
         "objects": "always-multiline",

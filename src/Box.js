@@ -53,12 +53,12 @@ export type BoxProps = {
   backgroundColor?: ThemeColorName,
   border?: string,
   borderBottomColor?: string,
-  borderBottomWidth?: number,
+  borderBottomWidth?: number | string,
   borderColor?: string,
   borderLeftColor?: string,
-  borderLeftWidth?: number,
+  borderLeftWidth?: number | string,
   borderRightColor?: string,
-  borderRightWidth?: number,
+  borderRightWidth?: number | string,
   borderStyle?: 'solid' | 'dotted' | 'dashed',
   borderTopColor?: string,
   borderRadius?: BorderRadius,
@@ -66,8 +66,8 @@ export type BoxProps = {
   borderTopRightRadius?: BorderRadius,
   borderBottomLeftRadius?: BorderRadius,
   borderBottomRightRadius?: BorderRadius,
-  borderTopWidth?: number,
-  borderWidth?: number,
+  borderTopWidth?: number | string,
+  borderWidth?: number | string,
   alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline',
   alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline',
   display?: 'inline' | 'block' | 'flex' | 'inline-block' | 'box' | 'inline-flex' | 'inline-table' | 'list-item' | 'run-in' | 'table' | 'table-caption' | 'table-column-group' | 'table-header-group' | 'table-footer-group' | 'table-row-group' | 'table-cell' | 'table-column' | 'table-row' | 'none' | 'initial' | 'inherit',
@@ -290,27 +290,27 @@ const computeBoxStyle = (theme = defaultTheme, {
   return [style, props];
 };
 
-const Box = ({
-  as,
-  style,
-  ...props
-}: BoxProps, {
-  renderer,
-  theme,
-}: BoxContext) => {
-  const Component = as || 'div';
-  const [boxStyle, restProps] = computeBoxStyle(theme, props);
-  const rule = renderer.renderRule(() => ({
-    ...boxStyle,
-    ...style,
-  }));
-  return (
-    <Component
-      {...restProps}
-      {...{ className: rule }}
-    />
-  );
-};
+class Box extends React.Component {
+  props: BoxProps;
+
+  render() {
+    const { as, style, ...props } = this.props;
+    const { renderer, theme }: BoxContext = this.context;
+    const Component = as || 'div';
+    const [boxStyle, restProps] = computeBoxStyle(theme, props);
+    const rule = renderer.renderRule(() => ({
+      ...boxStyle,
+      ...style,
+    }));
+
+    return (
+      <Component
+        {...restProps}
+        {...{ className: rule }}
+      />
+    );
+  }
+}
 
 Box.contextTypes = {
   renderer: PropTypes.object,

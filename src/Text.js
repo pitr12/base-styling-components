@@ -104,26 +104,25 @@ const computeTextStyle = (theme = defaultTheme, {
   return [style, props];
 };
 
-const Text = ({
-  as,
-  style,
-  ...props
-}: TextProps,
-{
-  theme,
-}: TextContext) => {
-  const [textStyle, restProps] = computeTextStyle(theme, props);
-  return (
-    <Box
-      as={as}
-      {...restProps}
-      style={{
-        ...textStyle,
-        ...style,
-      }}
-    />
-  );
-};
+class Text extends React.Component {
+  props: TextProps
+
+  render() {
+    const { as, style, ...props } = this.props;
+    const { theme }: TextContext = this.context;
+    const [textStyle, restProps] = computeTextStyle(theme, props);
+    return (
+      <Box
+        as={as}
+        {...restProps}
+        style={{
+          ...textStyle,
+          ...style,
+        }}
+      />
+    );
+  }
+}
 
 Text.contextTypes = {
   theme: PropTypes.object,
