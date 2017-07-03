@@ -2,9 +2,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+// $FlowFixMe
 import chai from 'chai';
-import { Box } from '../src';
-import defaultTheme, { getRadius, getMarginOrPadding } from '../src/defaultTheme';
+import { Box } from '../dist-modules';
+import defaultTheme, { getRadius, getMarginOrPadding } from '../dist-modules/defaultTheme';
 import rendererWithContext from './helpers/rendererWithContext';
 
 const getStyleNode = () => {

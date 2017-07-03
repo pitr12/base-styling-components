@@ -2,9 +2,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mount } from 'enzyme';
+// $FlowFixMe
 import chai from 'chai';
-import { Text, defaultTheme } from '../src';
-import { getFontFamily, getColor, getFontWeight, getTextSize } from '../src/defaultTheme';
+import { Text, defaultTheme } from '../dist-modules';
+import { getFontFamily, getColor, getFontWeight, getTextSize } from '../dist-modules/defaultTheme';
 import rendererWithContext from './helpers/rendererWithContext';
 
 const getStyleNode = () => {
