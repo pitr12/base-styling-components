@@ -52,15 +52,15 @@ export type BoxProps = {
   background?: ThemeColorName,
   backgroundColor?: ThemeColorName,
   border?: string,
-  borderBottomColor?: string,
+  borderBottomColor?: ThemeColorName,
   borderBottomWidth?: number | string,
-  borderColor?: string,
-  borderLeftColor?: string,
+  borderColor?: ThemeColorName,
+  borderLeftColor?: ThemeColorName,
   borderLeftWidth?: number | string,
-  borderRightColor?: string,
+  borderRightColor?: ThemeColorName,
   borderRightWidth?: number | string,
   borderStyle?: 'solid' | 'dotted' | 'dashed',
-  borderTopColor?: string,
+  borderTopColor?: ThemeColorName,
   borderRadius?: BorderRadius,
   borderTopLeftRadius?: BorderRadius,
   borderTopRightRadius?: BorderRadius,
@@ -250,18 +250,24 @@ const computeBoxStyle = (theme = defaultTheme, {
     }
   });
 
-  if (backgroundColor) {
-    style = { ...style, backgroundColor: getColor(backgroundColor, theme) };
-  }
-
-  const otherProps = {
-    flex,
-    border,
+  const colorProps = {
+    backgroundColor,
     borderColor,
     borderBottomColor,
     borderLeftColor,
     borderRightColor,
     borderTopColor,
+  };
+
+  Object.keys(colorProps).forEach((prop) => {
+    if (colorProps[prop]) {
+      style = { ...style, [prop]: getColor(colorProps[prop], theme) };
+    }
+  });
+
+  const otherProps = {
+    flex,
+    border,
     alignItems,
     alignSelf,
     display,
