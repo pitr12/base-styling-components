@@ -3,7 +3,7 @@
   "description": "Base react styling components",
   "author": "Peter Dubec",
   "user": "pitr12",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "jest",
@@ -36,8 +36,10 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
     "chai": "^3.5.0",
+    "cheerio": "^0.22.0",
     "clean-webpack-plugin": "^0.1.14",
     "css-loader": "^0.26.1",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-loader": "^1.6.1",
@@ -45,19 +47,22 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "fela": "^4.2.0",
+    "fela-dom": "^4.2.0",
     "file-loader": "^0.9.0",
     "flow-bin": "^0.48.0",
     "flow-copy-source": "^1.1.0",
     "git-prepush-hook": "^1.0.1",
     "html-webpack-plugin": "^2.25.0",
     "html-webpack-template": "^6.0.0",
+    "inline-style-prefixer": "^2.0.1",
     "jest": "^18.1.0",
     "json-loader": "^0.5.4",
     "purecss": "^0.6.1",
     "raw-loader": "^0.5.1",
-    "react": "^15.4.1",
-    "react-addons-test-utils": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-fela": "^4.2.0",
     "react-github-corner": "^0.3.0",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
@@ -72,7 +77,7 @@
     "fela": "^4.2.0",
     "fela-dom": "^4.2.0",
     "inline-style-prefixer": "^2.0.1",
-    "react": ">= 0.11.2 < 16.0.0",
+    "react": ">= 0.11.2",
     "react-fela": "^4.2.0"
   },
   "repository": {
@@ -105,9 +110,9 @@
     "test"
   ],
   "dependencies": {
-    "chai-enzyme": "^0.6.1",
-    "enzyme": "^2.7.1",
+    "chai-enzyme": "1.0.0-beta.0",
+    "enzyme": "^3.0.0",
     "prop-types": "^15.5.10",
-    "react-test-renderer": "^15.4.2"
+    "react-test-renderer": "^16.2.0"
   }
 }

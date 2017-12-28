@@ -116,7 +116,7 @@ if (TARGET === 'start') {
       inline: true,
       progress: true,
       host: process.env.HOST,
-      port: process.env.PORT,
+      port: 8081,
       stats: 'errors-only'
     }
   });
