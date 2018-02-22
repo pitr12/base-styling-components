@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import defaultTheme, { getMarginOrPadding, getRadius, getColor } from './defaultTheme';
 import type { ThemeType, ThemeColorName } from './defaultTheme'; // eslint-disable-line no-duplicate-imports
@@ -296,8 +296,8 @@ const computeBoxStyle = (theme = defaultTheme, {
   return [style, props];
 };
 
-class Box extends React.Component {
-  props: BoxProps;
+class Box extends React.Component<BoxProps> {
+  props: BoxProps
 
   render() {
     const { as, style, ...props } = this.props;

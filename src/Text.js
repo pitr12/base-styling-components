@@ -104,7 +104,7 @@ const computeTextStyle = (theme = defaultTheme, {
   return [style, props];
 };
 
-class Text extends React.Component {
+class Text extends React.Component<TextProps> {
   props: TextProps
 
   render() {

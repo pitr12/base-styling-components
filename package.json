@@ -3,7 +3,7 @@
   "description": "Base react styling components",
   "author": "Peter Dubec",
   "user": "pitr12",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "jest",
@@ -50,7 +50,7 @@
     "fela": "^4.2.0",
     "fela-dom": "^4.2.0",
     "file-loader": "^0.9.0",
-    "flow-bin": "^0.48.0",
+    "flow-bin": "^0.66.0",
     "flow-copy-source": "^1.1.0",
     "git-prepush-hook": "^1.0.1",
     "html-webpack-plugin": "^2.25.0",
