@@ -3,7 +3,7 @@
   "description": "Base react styling components",
   "author": "Peter Dubec",
   "user": "pitr12",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "jest",
