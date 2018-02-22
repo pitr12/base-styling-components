@@ -1,12 +1,14 @@
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
-// $FlowFixMe
+import { mount, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import chai from 'chai';
 import { Box } from '../dist-modules';
 import defaultTheme, { getRadius, getMarginOrPadding } from '../dist-modules/defaultTheme';
 import rendererWithContext from './helpers/rendererWithContext';
+
+configure({ adapter: new Adapter() });
 
 const getStyleNode = () => {
   const node = document.getElementById('fela-stylesheet');
