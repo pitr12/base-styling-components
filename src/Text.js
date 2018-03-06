@@ -31,6 +31,7 @@ type TextProps = BoxProps & {
   transform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
   textTransform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase',
   italic?: boolean,
+  bold?: boolean,
   lineHeight?: number | string,
 };
 
@@ -51,6 +52,7 @@ const computeTextStyle = (theme = defaultTheme, {
   transform,
   textTransform = transform,
   italic,
+  bold,
   lineHeight,
 
   ...props
@@ -99,6 +101,10 @@ const computeTextStyle = (theme = defaultTheme, {
 
   if (italic) {
     style = { ...style, fontStyle: 'italic' };
+  }
+
+  if (bold) {
+    style = { ...style, fontWeight: 'bold' };
   }
 
   return [style, props];
