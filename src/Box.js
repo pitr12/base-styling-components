@@ -8,7 +8,7 @@ type MarginOrPadding = "small" | "medium" | "large" | 0 | 1 | 2 | 3 | 4 | 5 | 6 
 type BorderRadius = "small" | "medium" | "circle" | string | number
 
 export type BoxProps = {
-  as?: string | () => React.Element<*>,
+  as?: string | React.ComponentType<any>,
   style?: Object,
   m?: MarginOrPadding,
   margin?: MarginOrPadding,
