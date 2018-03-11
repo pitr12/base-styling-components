@@ -165,6 +165,16 @@ it('should set text as italic', () => {
   styleNode && chai.assert(styleNode.includes('font-style:italic'));
 });
 
+it('should set text as bold', () => {
+  mount(rendererWithContext(
+    <Text bold>
+      some text inside box component
+    </Text>
+  ));
+  const styleNode = getStyleNode();
+  styleNode && chai.assert(styleNode.includes('font-weight:bold'));
+});
+
 it('should transform text to uppercase', () => {
   mount(rendererWithContext(
     <Text textTransform="uppercase">
