@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import type { BoxProps } from './Box';
 import Box from './Box';  // eslint-disable-line no-duplicate-imports
@@ -110,7 +110,7 @@ const computeTextStyle = (theme = defaultTheme, {
   return [style, props];
 };
 
-class Text extends React.Component<TextProps> {
+class Text extends Component<TextProps> {
   props: TextProps
 
   render() {

@@ -1,5 +1,5 @@
 // @flow
-import * as React from 'react';
+import React, { Component, type ComponentType } from 'react';
 import PropTypes from 'prop-types';
 import defaultTheme, { getMarginOrPadding, getRadius, getColor } from './defaultTheme';
 import type { ThemeType, ThemeColorName } from './defaultTheme'; // eslint-disable-line no-duplicate-imports
@@ -8,7 +8,7 @@ type MarginOrPadding = "small" | "medium" | "large" | 0 | 1 | 2 | 3 | 4 | 5 | 6 
 type BorderRadius = "small" | "medium" | "circle" | string | number
 
 export type BoxProps = {
-  as?: string | React.ComponentType<any>,
+  as?: string | ComponentType<any>,
   style?: Object,
   m?: MarginOrPadding,
   margin?: MarginOrPadding,
@@ -296,7 +296,7 @@ const computeBoxStyle = (theme = defaultTheme, {
   return [style, props];
 };
 
-class Box extends React.Component<BoxProps> {
+class Box extends Component<BoxProps> {
   props: BoxProps
 
   render() {
